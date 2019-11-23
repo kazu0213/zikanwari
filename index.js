@@ -2,26 +2,6 @@
 // モジュールのインポート
 const server = require("express")();
 const line = require("@line/bot-sdk"); // Messaging APIのSDKをインポート
-const weeks = new Array('日','月','火','水','木','金','土');
-
-const lastup = new Date(document.lastModified);
-
-const year = lastup.getYear(); // 年
-const month = lastup.getMonth() + 1; // 月
-const day = lastup.getDate(); // 日
-const week = weeks[ lastup.getDay() ]; // 曜日
-const hour = lastup.getHours(); // 時
-const min = lastup.getMinutes(); // 分
-const sec = lastup.getSeconds(); // 秒
-
-if(year < 2000) { year += 1900; }
-
-// 数値が1桁の場合、頭に0を付けて2桁で表示する指定
-if(month < 10) { month = "0" + month; }
-if(day < 10) { day = "0" + day; }
-if(hour < 10) { hour = "0" + hour; }
-if(min < 10) { min = "0" + min; }
-if(sec < 10) { sec = "0" + sec; }
 
 // -----------------------------------------------------------------------------
 // パラメータ設定
@@ -47,7 +27,7 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
     req.body.events.forEach((event) => {
         // この処理の対象をイベントタイプがメッセージで、かつ、テキストタイプだった場合に限定。
         if (event.type == "message" && event.message.type == "text") {
-            let text = "何時限目を知りたいのかな？"+year;
+            let text = "何時限目を知りたいのかな？";
             switch (event.message.text) {
                 case 'おはよう':
                     text = "おはよう！！"
