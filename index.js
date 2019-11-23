@@ -2,7 +2,6 @@
 // モジュールのインポート
 const server = require("express")();
 const line = require("@line/bot-sdk"); // Messaging APIのSDKをインポート
-}
 // -----------------------------------------------------------------------------
 // パラメータ設定
 const line_config = {
@@ -18,7 +17,7 @@ server.listen(process.env.PORT || 3000);
 const bot = new line.Client(line_config);
 // -----------------------------------------------------------------------------
 // ルーター設定
-server.post('/webhook', line.middleware(line_config), (req, res, next) => {
+server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
     res.sendStatus(200);
     // すべてのイベント処理のプロミスを格納する配列。
     let events_processed = [];
@@ -40,8 +39,6 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                     break;
             }
             // replyMessage()で返信し、そのプロミスをevents_processedに追加。
-            if event.replyToken == "00000000000000000000000000000000":
-            return
             events_processed.push(bot.replyMessage(event.replyToken, {
                 type: "text",
                 text: text
