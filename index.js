@@ -2,6 +2,11 @@
 // モジュールのインポート
 const server = require("express")();
 const line = require("@line/bot-sdk"); // Messaging APIのSDKをインポート
+const versioningNum = new Date().getTime()
+const jsURL = '../../portfolio/js/custom.js?ver=' + versioningNum
+const jsElement=document.createElement('script')
+jsElement.setAttribute('src', jsURL)
+document.getElementsByTagName("body")[0].appendChild(jsElement)
 
 // -----------------------------------------------------------------------------
 // パラメータ設定
@@ -27,7 +32,7 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
     req.body.events.forEach((event) => {
         // この処理の対象をイベントタイプがメッセージで、かつ、テキストタイプだった場合に限定。
         if (event.type == "message" && event.message.type == "text") {
-            let text = "何時限目を知りたいのかな？";
+            let text = "何時限目を知りたいのかな？"+jsElement;
             switch (event.message.text) {
                 case 'おはよう':
                     text = "おはよう！！"
