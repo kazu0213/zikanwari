@@ -40,6 +40,8 @@ server.post('/webhook', line.middleware(line_config), (req, res, next) => {
                     break;
             }
             // replyMessage()で返信し、そのプロミスをevents_processedに追加。
+            if event.replyToken == "00000000000000000000000000000000":
+            return
             events_processed.push(bot.replyMessage(event.replyToken, {
                 type: "text",
                 text: text
