@@ -18,7 +18,7 @@ server.listen(process.env.PORT || 3000);
 const bot = new line.Client(line_config);
 // -----------------------------------------------------------------------------
 // ルーター設定
-server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
+server.post('/webhook', line.middleware(line_config), (req, res, next) => {
     res.sendStatus(200);
     // すべてのイベント処理のプロミスを格納する配列。
     let events_processed = [];
